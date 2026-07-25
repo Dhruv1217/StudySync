@@ -588,6 +588,30 @@ def change_password_page():
 
 
 # ═══════════════════════════════════════════
+#  DELETE ACCOUNT
+# ═══════════════════════════════════════════
+
+@app.route('/delete-account', methods=['POST'])
+def delete_account():
+    """
+    Delete Account.
+    Deletes the logged in student and all their associated data from the database.
+    """
+    student = get_logged_in_student()
+    if not student:
+        return redirect(url_for('login_page'))
+
+    # Delete the student from the database. 
+    # Because of cascade="all, delete-orphan" in models.py, this deletes their tasks, attendance, and CGPA too.
+    db.session.delete(student)
+    db.session.commit()
+    
+    session.clear()
+    flash('Account and all associated data permanently deleted.', 'info')
+    return redirect(url_for('index'))
+
+
+# ═══════════════════════════════════════════
 #  RUN APPLICATION
 # ═══════════════════════════════════════════
 
