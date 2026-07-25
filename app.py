@@ -76,16 +76,16 @@ def calculate_progress_data(roll_number):
     tasks = get_student_tasks(roll_number)
 
     total_tasks = len(tasks)
-    completed_tasks = sum(1 for t in tasks if t['status'] == 'Completed')
+    completed_tasks = sum(1 for t in tasks if t.status == 'Completed')
     pending_tasks = total_tasks - completed_tasks
 
     task_pct = (completed_tasks / total_tasks * 100) if total_tasks > 0 else 0
 
     attendance_record = get_student_attendance(roll_number)
-    attendance_pct = attendance_record['attendance_percentage'] if attendance_record else 0
+    attendance_pct = attendance_record.attendance_percentage if attendance_record else 0
 
     cgpa_record = get_student_cgpa(roll_number)
-    cgpa_val = cgpa_record['cgpa'] if cgpa_record else 0
+    cgpa_val = cgpa_record.cgpa if cgpa_record else 0
     cgpa_pct = cgpa_val * 10
 
     overall = (task_pct + attendance_pct + cgpa_pct) / 3
@@ -247,7 +247,7 @@ def dashboard():
         flash('Please login first.', 'warning')
         return redirect(url_for('login_page'))
 
-    progress = calculate_progress_data(student['roll_number'])
+    progress = calculate_progress_data(student.roll_number)
     quote = get_random_quote()
 
     return render_template('dashboard.html',
@@ -284,7 +284,7 @@ def tasks():
     if not student:
         return redirect(url_for('login_page'))
 
-    student_tasks = get_student_tasks(student['roll_number'])
+    student_tasks = get_student_tasks(student.roll_number)
     return render_template('tasks.html', student=student, tasks=student_tasks)
 
 
@@ -430,7 +430,7 @@ def attendance():
 
         return redirect(url_for('attendance'))
 
-    record = get_student_attendance(student['roll_number'])
+    record = get_student_attendance(student.roll_number)
     return render_template('attendance.html', student=student, record=record)
 
 
@@ -489,7 +489,7 @@ def cgpa():
 
         return redirect(url_for('cgpa'))
 
-    cgpa_record = get_student_cgpa(student['roll_number'])
+    cgpa_record = get_student_cgpa(student.roll_number)
     return render_template('cgpa.html', student=student, cgpa_record=cgpa_record)
 
 
@@ -509,7 +509,7 @@ def progress():
     if not student:
         return redirect(url_for('login_page'))
 
-    data = calculate_progress_data(student['roll_number'])
+    data = calculate_progress_data(student.roll_number)
 
     return render_template('progress.html',
                            student=student,
@@ -530,7 +530,7 @@ def report():
     if not student:
         return redirect(url_for('login_page'))
 
-    data = calculate_progress_data(student['roll_number'])
+    data = calculate_progress_data(student.roll_number)
 
     return render_template('report.html',
                            student=student,
@@ -559,7 +559,7 @@ def change_password_page():
         new = request.form.get('new_password', '')
         confirm = request.form.get('confirm_password', '')
 
-        if current != student['password']:
+        if current != student.password:
             flash('Incorrect Current Password.', 'error')
             return redirect(url_for('change_password_page'))
 
