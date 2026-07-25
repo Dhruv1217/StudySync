@@ -3,18 +3,21 @@
    Dark Theme | Glassmorphism | Premium UI
    =================================================== */
 
-/* ── Google Font ── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 /* ── CSS Custom Properties ── */
 :root {
     /* Background */
-    --bg-primary: #0a0e1a;
-    --bg-secondary: #111827;
-    --bg-card: rgba(17, 24, 39, 0.7);
-    --bg-card-hover: rgba(30, 41, 59, 0.8);
-    --bg-glass: rgba(255, 255, 255, 0.03);
-    --bg-input: rgba(255, 255, 255, 0.05);
+    --bg-primary: #050505;
+    --bg-secondary: #0a0a0a;
+    --bg-card: rgba(15, 15, 15, 0.6);
+    --bg-card-hover: rgba(25, 25, 25, 0.8);
+    --bg-glass: rgba(255, 255, 255, 0.02);
+    --bg-input: rgba(255, 255, 255, 0.04);
+    
+    /* Background Pattern (Grid) */
+    --bg-grid: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
 
     /* Text */
     --text-primary: #f1f5f9;
@@ -39,14 +42,16 @@
     --accent-pink: #ec4899;
 
     /* Borders */
-    --border-color: rgba(255, 255, 255, 0.06);
-    --border-accent: rgba(99, 102, 241, 0.3);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(99, 102, 241, 0.4);
+    --border-glass-inner: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 
     /* Shadows */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.15);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.8);
+    --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.2);
+    --shadow-btn-glow: 0 4px 20px rgba(99, 102, 241, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 
     /* Spacing */
     --sidebar-width: 260px;
@@ -79,7 +84,7 @@ html {
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg-primary);
+    background: var(--bg-primary) var(--bg-grid);
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
@@ -112,6 +117,10 @@ ul, ol {
 img {
     max-width: 100%;
     display: block;
+}
+
+h1, h2, h3, h4, h5, h6, .logo, .stat-value {
+    font-family: 'Outfit', sans-serif;
 }
 
 /* ── Utility Classes ── */
@@ -293,17 +302,38 @@ img {
     transition: all var(--transition-base);
     position: relative;
     overflow: hidden;
+    z-index: 1;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+
+.btn:hover::before {
+    left: 150%;
+}
+
+.btn:active {
+    transform: scale(0.97) !important;
 }
 
 .btn-primary {
     background: var(--gradient-primary);
     color: white;
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+    box-shadow: var(--shadow-btn-glow);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .btn-secondary {
@@ -403,14 +433,15 @@ img {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     padding: 32px;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(30px);
+    box-shadow: var(--border-glass-inner);
     transition: all var(--transition-base);
 }
 
 .feature-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-4px) scale(1.02);
     border-color: var(--border-accent);
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--border-glass-inner), var(--shadow-glow);
 }
 
 .feature-icon {
@@ -477,8 +508,8 @@ img {
     padding: 48px;
     width: 100%;
     max-width: 480px;
-    backdrop-filter: blur(20px);
-    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(30px);
+    box-shadow: var(--border-glass-inner), var(--shadow-lg);
     position: relative;
     z-index: 1;
 }
@@ -730,6 +761,19 @@ select.form-control option {
     background: rgba(99, 102, 241, 0.12);
     color: var(--accent-indigo);
     font-weight: 600;
+    position: relative;
+}
+
+.nav-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10%;
+    height: 80%;
+    width: 4px;
+    background: var(--accent-indigo);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
 }
 
 .nav-item .nav-icon {
@@ -862,7 +906,8 @@ select.form-control option {
     border-radius: var(--radius-lg);
     padding: 32px;
     margin-bottom: 28px;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(30px);
+    box-shadow: var(--border-glass-inner);
     position: relative;
     overflow: hidden;
 }
@@ -929,16 +974,17 @@ select.form-control option {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     padding: 24px;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(30px);
+    box-shadow: var(--border-glass-inner);
     transition: all var(--transition-base);
     position: relative;
     overflow: hidden;
 }
 
 .stat-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.02);
     border-color: var(--border-accent);
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--border-glass-inner), var(--shadow-glow);
 }
 
 .stat-card .stat-icon {
@@ -972,7 +1018,8 @@ select.form-control option {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(30px);
+    box-shadow: var(--border-glass-inner);
     overflow: hidden;
 }
 
