@@ -41,6 +41,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
+# Ensure database tables are created before first request
+with app.app_context():
+    db.create_all()
 
 # ═══════════════════════════════════════════
 #  HELPER FUNCTIONS
@@ -589,9 +592,6 @@ def change_password_page():
 # ═══════════════════════════════════════════
 
 if __name__ == '__main__':
-    # Initialize Database Tables
-    with app.app_context():
-        db.create_all()
 
     print("\n" + "=" * 50)
     print("  ⚡ StudySync Web Application")
