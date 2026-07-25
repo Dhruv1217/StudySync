@@ -1,0 +1,51 @@
+{% extends "dashboard.html" %}
+{% block title %}CGPA Calculator – StudySync{% endblock %}
+{% block page_title %}CGPA Calculator{% endblock %}
+
+{% block content %}
+<div class="cgpa-layout animate-in">
+    <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+            <h2>🎯 Calculate Your CGPA</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('cgpa') }}" id="cgpa-form">
+                <!-- Step 1: Number of semesters -->
+                <div class="form-group">
+                    <label for="semester-count">How many semesters completed?</label>
+                    <div style="display: flex; gap: 12px;">
+                        <input type="number" id="semester-count" class="form-control" 
+                               min="1" max="8" placeholder="1-8"
+                               style="max-width: 120px;">
+                        <button type="button" id="generate-inputs-btn" class="btn btn-secondary btn-sm">
+                            Generate Inputs
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Dynamic SGPA inputs -->
+                <div class="semester-inputs" id="semester-inputs"></div>
+
+                <button type="submit" id="cgpa-submit-btn" class="btn btn-primary" style="display: none; width: 100%;">
+                    Calculate CGPA
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Result -->
+    {% if cgpa_record %}
+    <div class="card animate-in">
+        <div class="card-header">
+            <h2>📊 Your CGPA</h2>
+        </div>
+        <div class="card-body">
+            <div class="cgpa-result">
+                <div class="cgpa-value">{{ "%.2f" | format(cgpa_record.cgpa) }}</div>
+                <div class="cgpa-label">Cumulative Grade Point Average</div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

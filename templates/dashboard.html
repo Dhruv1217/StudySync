@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}Dashboard – StudySync{% endblock %}
+
+{% block body %}
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="logo">⚡ StudySync</div>
+        <div class="logo-sub">Student Productivity Hub</div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="nav-label">Main</div>
+        <a href="{{ url_for('dashboard') }}" class="nav-item {{ 'active' if request.endpoint == 'dashboard' }}" id="nav-dashboard">
+            <span class="nav-icon">🏠</span> Dashboard
+        </a>
+        <a href="{{ url_for('profile') }}" class="nav-item {{ 'active' if request.endpoint == 'profile' }}" id="nav-profile">
+            <span class="nav-icon">👤</span> My Profile
+        </a>
+
+        <div class="nav-label">Tools</div>
+        <a href="{{ url_for('tasks') }}" class="nav-item {{ 'active' if request.endpoint == 'tasks' }}" id="nav-tasks">
+            <span class="nav-icon">📋</span> Task Manager
+        </a>
+        <a href="{{ url_for('attendance') }}" class="nav-item {{ 'active' if request.endpoint == 'attendance' }}" id="nav-attendance">
+            <span class="nav-icon">📊</span> Attendance
+        </a>
+        <a href="{{ url_for('cgpa') }}" class="nav-item {{ 'active' if request.endpoint == 'cgpa' }}" id="nav-cgpa">
+            <span class="nav-icon">🎯</span> CGPA Calculator
+        </a>
+
+        <div class="nav-label">Insights</div>
+        <a href="{{ url_for('progress') }}" class="nav-item {{ 'active' if request.endpoint == 'progress' }}" id="nav-progress">
+            <span class="nav-icon">📈</span> Study Progress
+        </a>
+        <a href="{{ url_for('report') }}" class="nav-item {{ 'active' if request.endpoint == 'report' }}" id="nav-report">
+            <span class="nav-icon">📝</span> Weekly Report
+        </a>
+
+        <div class="nav-label">Account</div>
+        <a href="{{ url_for('change_password_page') }}" class="nav-item {{ 'active' if request.endpoint == 'change_password_page' }}" id="nav-password">
+            <span class="nav-icon">🔑</span> Change Password
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="sidebar-user">
+            <div class="user-avatar">{{ student.name[0] | upper }}</div>
+            <div class="user-info">
+                <div class="name">{{ student.name }}</div>
+                <div class="role">{{ student.branch }} • Sem {{ student.semester }}</div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<!-- Sidebar Overlay (Mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- Top Navbar -->
+<header class="top-navbar">
+    <div style="display: flex; align-items: center; gap: 12px;">
+        <button class="mobile-toggle" id="mobile-toggle">☰</button>
+        <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
+    </div>
+    <div class="navbar-right">
+        <span class="datetime"></span>
+        <a href="{{ url_for('logout') }}" class="btn-logout">🚪 Logout</a>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="main-content">
+    {% block content %}
+    <!-- Welcome Banner -->
+    <div class="welcome-banner animate-in">
+        <h1>Welcome back, <span>{{ student.name }}</span> 👋</h1>
+        <p class="subtitle">Here's an overview of your academic performance</p>
+        <div class="quote-box">
+            <div class="quote-label">💡 Quote of the Day</div>
+            "{{ quote }}"
+        </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+        <div class="stat-card animate-in">
+            <div class="stat-icon" style="background: rgba(99, 102, 241, 0.15); color: var(--accent-indigo);">📋</div>
+            <div class="stat-value" data-count="{{ total_tasks }}">0</div>
+            <div class="stat-label">Total Tasks</div>
+        </div>
+
+        <div class="stat-card animate-in">
+            <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-green);">✅</div>
+            <div class="stat-value" data-count="{{ completed_tasks }}">0</div>
+            <div class="stat-label">Completed Tasks</div>
+        </div>
+
+        <div class="stat-card animate-in">
+            <div class="stat-icon" style="background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan);">📊</div>
+            <div class="stat-value" data-count="{{ attendance_pct }}" data-decimal="true" data-suffix="%">0%</div>
+            <div class="stat-label">Attendance</div>
+        </div>
+
+        <div class="stat-card animate-in">
+            <div class="stat-icon" style="background: rgba(139, 92, 246, 0.15); color: var(--accent-violet);">🎯</div>
+            <div class="stat-value" data-count="{{ cgpa_val }}" data-decimal="true">0</div>
+            <div class="stat-label">CGPA</div>
+        </div>
+    </div>
+    {% endblock %}
+</main>
+{% endblock %}

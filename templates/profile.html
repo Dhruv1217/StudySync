@@ -1,0 +1,62 @@
+{% extends "dashboard.html" %}
+{% block title %}Profile – StudySync{% endblock %}
+{% block page_title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="card profile-card animate-in">
+    <div class="card-header">
+        <h2>👤 Student Profile</h2>
+    </div>
+    <div class="card-body">
+        <div class="profile-header">
+            <div class="profile-avatar">{{ student.name[0] | upper }}</div>
+            <div>
+                <div class="profile-name">{{ student.name }}</div>
+                <div class="profile-branch">{{ student.branch }} • Semester {{ student.semester }}</div>
+            </div>
+        </div>
+
+        <div class="profile-details">
+            <div class="profile-row">
+                <div class="row-icon">👤</div>
+                <div>
+                    <div class="row-label">Full Name</div>
+                    <div class="row-value">{{ student.name }}</div>
+                </div>
+            </div>
+
+            <div class="profile-row">
+                <div class="row-icon">🔢</div>
+                <div>
+                    <div class="row-label">Roll Number</div>
+                    <div class="row-value">{{ student.roll_number }}</div>
+                </div>
+            </div>
+
+            <div class="profile-row">
+                <div class="row-icon">🏛️</div>
+                <div>
+                    <div class="row-label">Branch</div>
+                    <div class="row-value">{{ student.branch }}</div>
+                </div>
+            </div>
+
+            <div class="profile-row">
+                <div class="row-icon">📅</div>
+                <div>
+                    <div class="row-label">Semester</div>
+                    <div class="row-value">{{ student.semester }}</div>
+                </div>
+            </div>
+
+            <div class="profile-row">
+                <div class="row-icon">✉️</div>
+                <div>
+                    <div class="row-label">Email</div>
+                    <div class="row-value">{{ student.email }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

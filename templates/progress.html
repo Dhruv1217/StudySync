@@ -1,0 +1,59 @@
+{% extends "dashboard.html" %}
+{% block title %}Study Progress – StudySync{% endblock %}
+{% block page_title %}Study Progress{% endblock %}
+
+{% block content %}
+<div class="progress-section animate-in">
+    <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+            <h2>📈 {{ student.name }}'s Progress</h2>
+        </div>
+        <div class="card-body">
+            <div class="progress-bars">
+                <!-- Task Completion -->
+                <div class="progress-item">
+                    <div class="progress-item-header">
+                        <span class="progress-item-label">📋 Task Completion</span>
+                        <span class="progress-item-value">{{ "%.1f" | format(task_pct) }}%</span>
+                    </div>
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill indigo" data-width="{{ task_pct }}"></div>
+                    </div>
+                    <div style="margin-top: 6px; font-size: 0.8rem; color: var(--text-muted);">
+                        {{ completed_tasks }} completed / {{ pending_tasks }} pending
+                    </div>
+                </div>
+
+                <!-- Attendance -->
+                <div class="progress-item">
+                    <div class="progress-item-header">
+                        <span class="progress-item-label">📊 Attendance</span>
+                        <span class="progress-item-value">{{ "%.1f" | format(attendance_pct) }}%</span>
+                    </div>
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill cyan" data-width="{{ attendance_pct }}"></div>
+                    </div>
+                </div>
+
+                <!-- CGPA -->
+                <div class="progress-item">
+                    <div class="progress-item-header">
+                        <span class="progress-item-label">🎯 CGPA ({{ "%.2f" | format(cgpa_val) }} / 10)</span>
+                        <span class="progress-item-value">{{ "%.1f" | format(cgpa_pct) }}%</span>
+                    </div>
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill green" data-width="{{ cgpa_pct }}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overall Score -->
+    <div class="overall-score animate-in">
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Overall Score</div>
+        <div class="overall-value">{{ "%.1f" | format(overall) }}%</div>
+        <div class="performance-badge">{{ performance }}</div>
+    </div>
+</div>
+{% endblock %}

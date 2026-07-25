@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}StudySync – Student Productivity Hub{% endblock %}
+
+{% block body %}
+<!-- Landing Navbar -->
+<nav class="landing-nav" id="landing-nav">
+    <div class="logo">⚡ StudySync</div>
+    <div class="nav-links">
+        <a href="{{ url_for('login_page') }}" class="btn btn-secondary btn-sm">Login</a>
+        <a href="{{ url_for('signup_page') }}" class="btn btn-primary btn-sm">Sign Up</a>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="hero">
+    <div class="hero-content">
+        <div class="hero-badge">🎓 Built for Students, by Students</div>
+        <h1>
+            Master Your<br>
+            <span class="gradient-text">Academic Life</span>
+        </h1>
+        <p>
+            StudySync is your all-in-one student productivity hub. Manage tasks, 
+            track attendance, calculate CGPA, and monitor your study progress — 
+            all in one beautiful dashboard.
+        </p>
+        <div class="hero-buttons">
+            <a href="{{ url_for('signup_page') }}" class="btn btn-primary">
+                🚀 Get Started Free
+            </a>
+            <a href="#features" class="btn btn-secondary">
+                ✨ Explore Features
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" id="features">
+    <div class="container">
+        <div class="section-header">
+            <h2>Everything You Need to <span class="gradient-text">Excel</span></h2>
+            <p>Powerful tools designed for student success</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card animate-in">
+                <div class="feature-icon indigo">📋</div>
+                <h3>Task Manager</h3>
+                <p>Create, organize, and track your assignments with priority levels and due dates. Never miss a deadline again.</p>
+            </div>
+
+            <div class="feature-card animate-in">
+                <div class="feature-icon cyan">📊</div>
+                <h3>Attendance Tracker</h3>
+                <p>Calculate your attendance percentage instantly and know if you're eligible or running short.</p>
+            </div>
+
+            <div class="feature-card animate-in">
+                <div class="feature-icon violet">🎯</div>
+                <h3>CGPA Calculator</h3>
+                <p>Enter your semester SGPAs and get your cumulative GPA calculated in seconds.</p>
+            </div>
+
+            <div class="feature-card animate-in">
+                <div class="feature-icon green">📈</div>
+                <h3>Study Progress</h3>
+                <p>Get a comprehensive overview of your academic performance with visual progress indicators.</p>
+            </div>
+
+            <div class="feature-card animate-in">
+                <div class="feature-icon amber">📝</div>
+                <h3>Weekly Reports</h3>
+                <p>Generate detailed weekly reports summarizing your tasks, attendance, and overall performance.</p>
+            </div>
+
+            <div class="feature-card animate-in">
+                <div class="feature-icon pink">🔒</div>
+                <h3>Secure Accounts</h3>
+                <p>Your data is protected with password-secured accounts. Each student gets their own personalized dashboard.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="landing-footer">
+    <p>Built with 🐍 <span>Python & Flask</span> | StudySync © 2026</p>
+</footer>
+{% endblock %}

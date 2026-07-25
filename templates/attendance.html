@@ -1,0 +1,70 @@
+{% extends "dashboard.html" %}
+{% block title %}Attendance – StudySync{% endblock %}
+{% block page_title %}Attendance Calculator{% endblock %}
+
+{% block content %}
+<div class="attendance-layout animate-in">
+    <!-- Input Form -->
+    <div class="card">
+        <div class="card-header">
+            <h2>📊 Calculate Attendance</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('attendance') }}">
+                <div class="form-group">
+                    <label for="total_classes">Total Classes</label>
+                    <input type="number" id="total_classes" name="total_classes" class="form-control"
+                           placeholder="e.g. 50" min="1" required
+                           value="{{ record.total_classes if record else '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="attended_classes">Classes Attended</label>
+                    <input type="number" id="attended_classes" name="attended_classes" class="form-control"
+                           placeholder="e.g. 40" min="0" required
+                           value="{{ record.attended_classes if record else '' }}">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Calculate</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Result -->
+    <div class="card">
+        <div class="card-header">
+            <h2>📈 Result</h2>
+        </div>
+        <div class="card-body">
+            <div class="attendance-result">
+                {% if record %}
+                <div class="progress-ring-container">
+                    <svg class="progress-ring" width="200" height="200">
+                        <circle class="progress-ring-bg" cx="100" cy="100" r="85" fill="none"/>
+                        <circle class="progress-ring-fill" cx="100" cy="100" r="85" fill="none"
+                                data-percentage="{{ record.attendance_percentage }}"
+                                stroke="{{ '#10b981' if record.attendance_percentage >= 75 else '#ef4444' }}"/>
+                    </svg>
+                    <div class="progress-ring-text">
+                        <div class="percentage" style="color: {{ '#10b981' if record.attendance_percentage >= 75 else '#ef4444' }}">
+                            {{ "%.1f" | format(record.attendance_percentage) }}%
+                        </div>
+                        <div class="label">Attendance</div>
+                    </div>
+                </div>
+
+                {% if record.attendance_percentage >= 75 %}
+                <div class="eligibility-badge eligible">✅ Eligible</div>
+                {% else %}
+                <div class="eligibility-badge short">❌ Short Attendance</div>
+                {% endif %}
+                {% else %}
+                <div class="empty-state" style="padding: 40px 20px;">
+                    <div class="empty-icon">📊</div>
+                    <h3>No data yet</h3>
+                    <p>Enter your classes to calculate attendance</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

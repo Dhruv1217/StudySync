@@ -1,0 +1,37 @@
+{% extends "dashboard.html" %}
+{% block title %}Weekly Report – StudySync{% endblock %}
+{% block page_title %}Weekly Report{% endblock %}
+
+{% block content %}
+<div class="card report-card animate-in">
+    <div class="card-header">
+        <h2>📝 Weekly Report</h2>
+    </div>
+    <div class="card-body">
+        <div style="margin-bottom: 24px; padding: 16px; background: var(--bg-glass); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;">Student</div>
+            <div style="font-size: 1.2rem; font-weight: 700;">{{ student.name }}</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">{{ student.branch }} • Semester {{ student.semester }} • Roll No. {{ student.roll_number }}</div>
+        </div>
+
+        <table class="report-table">
+            <tr>
+                <td>📋 Completed Tasks</td>
+                <td>{{ completed_tasks }}</td>
+            </tr>
+            <tr>
+                <td>⏳ Pending Tasks</td>
+                <td>{{ pending_tasks }}</td>
+            </tr>
+            <tr>
+                <td>📊 Attendance</td>
+                <td>{{ "%.2f" | format(attendance_pct) }}%</td>
+            </tr>
+            <tr>
+                <td>🎯 CGPA</td>
+                <td>{{ "%.2f" | format(cgpa_val) }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}
