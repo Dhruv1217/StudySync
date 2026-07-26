@@ -84,3 +84,4 @@ This application is ready to be deployed on Render as a Web Service.
 - **Start Command:** `gunicorn app:app`
 
 *Note: For production, it is highly recommended to attach a free PostgreSQL database to your Render service and add its connection string as the `DATABASE_URL` environment variable.*
+https://studysync-cvjr.onrender.com/

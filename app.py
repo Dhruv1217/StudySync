@@ -15,7 +15,7 @@ Technologies Used:
     - Python (Backend Logic)
     - Flask (Web Framework)
     - Jinja2 (Templating)
-    - JSON (Data Storage)
+    - PostgreSQL(Database)
     - HTML/CSS/JS (Frontend)
 """
 

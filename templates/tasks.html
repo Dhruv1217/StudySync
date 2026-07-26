@@ -69,13 +69,13 @@
 
         <div class="task-actions">
             {% if task.status != 'Completed' %}
-            <form method="POST" action="{{ url_for('complete_task', task_id=task.task_id) }}">
+            <form method="POST" action="{{ url_for('complete_task', task_id=task.id) }}">
                 <button type="submit" class="btn btn-success btn-sm">✅ Complete</button>
             </form>
             {% endif %}
 
             <button type="button" class="btn btn-warning btn-sm edit-task-btn"
-                    data-id="{{ task.task_id }}"
+                    data-id="{{ task.id }}"
                     data-title="{{ task.title }}"
                     data-subject="{{ task.subject }}"
                     data-priority="{{ task.priority }}"
@@ -83,7 +83,7 @@
                 ✏️ Edit
             </button>
 
-            <form method="POST" action="{{ url_for('delete_task', task_id=task.task_id) }}" class="delete-task-form">
+            <form method="POST" action="{{ url_for('delete_task', task_id=task.id) }}" class="delete-task-form">
                 <button type="submit" class="btn btn-danger btn-sm">🗑️ Delete</button>
             </form>
         </div>
